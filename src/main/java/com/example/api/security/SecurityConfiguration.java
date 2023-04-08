@@ -1,5 +1,6 @@
 package com.example.api.security;
 
+import com.example.api.entity.Role;
 import com.example.api.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -25,18 +26,17 @@ public class SecurityConfiguration {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/v1/users")
-                .hasAuthority("ADMIN")
-                .requestMatchers("/api/v1/auth/**")
+                .requestMatchers("api/v1/auth/**","api/v1/products/**")
                 .permitAll()
-                .anyRequest()
-                .authenticated()
+                .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+                .requestMatchers("/api/v1/profile/**").hasAnyRole("ADMIN","USER")
+                .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)//spring creates a new session for each request
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthFilter,UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 }

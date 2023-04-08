@@ -27,6 +27,8 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String email;
     private String password;
+    @Column(columnDefinition = "boolean default true")
+    private boolean banned =true;
     @Enumerated(EnumType.STRING)
     private Role role;
     @OneToMany(mappedBy = "user")
@@ -66,4 +68,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

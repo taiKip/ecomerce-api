@@ -20,9 +20,9 @@ public class ApplicationStartRunner implements CommandLineRunner {
         User user = User.builder()
                 .firstname("Victor")
                 .lastname("Tarus")
-                .email("test@gmail.com")
-                .password(passwordEncoder.encode("test123"))
-                .role(Role.ADMIN)
+                .email("admin@gmail.com")
+                .password(passwordEncoder.encode("test@123"))
+                .role(Role.ROLE_ADMIN)
                 .build();
         authenticationService.register(user);
     }

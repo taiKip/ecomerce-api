@@ -1,5 +1,5 @@
 package com.example.api.entity;
-
+//roles should have prefix ROLE_
 public enum Role {
-    ADMIN,USER
+    ROLE_ADMIN,ROLE_USER
 }
