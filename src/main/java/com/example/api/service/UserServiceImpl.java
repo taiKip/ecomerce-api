@@ -5,6 +5,10 @@ import com.example.api.entity.User;
 import com.example.api.repository.UserRepository;
 import com.example.api.utils.UserDTOMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -63,18 +67,24 @@ public class UserServiceImpl implements UserService {
         if(userDb.isEmpty()){
             //todo throw user not found error
         }
-        userDb.get().setBanned(true);
-        userRepository.save(userDb.get());
+        if(userDb.get().isBanned()){
+
+            userDb.get().setBanned(false);
+            userRepository.save(userDb.get());
+            return  userDb.get().getFirstname() + "'s account has been activated";
+        }else {
+            userDb.get().setBanned(true);
+            userRepository.save(userDb.get());
+        }
+
         return  userDb.get().getFirstname() + "'s account has been banned";
     }
-    @Override
-    public String activateUser(Long userId) {
-        Optional<User> userDb = userRepository.findById(userId);
-        if(userDb.isEmpty()){
-            //todo throw user not found error
-        }
-        userDb.get().setBanned(false);
-        userRepository.save(userDb.get());
-        return  userDb.get().getFirstname() + "'s account  has been activated";
-    }
+
+//todo user pagination
+//    @Override
+//    public Page<UserDTO> fetchUsersByPage(int pageNumber, int pageSize) {
+//      //  Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("firstname").ascending());
+//      ///  Page<UserDTO> page = userRepository.findAll(pageable).stream().map(UserDTOMapper).collect(Collectors.toList());
+//      //  return userRepository.findAll(pageable).map(UserDTOMapper) ;
+//    }
 }

@@ -2,6 +2,7 @@ package com.example.api.service;
 
 import com.example.api.dto.UserDTO;
 import com.example.api.entity.User;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,5 +21,6 @@ public interface UserService {
 
     String banUser(Long userId);
 
-     String activateUser(Long userId);
+
+   // Page<UserDTO> fetchUsersByPage(int pageNumber, int pageSize);
 }

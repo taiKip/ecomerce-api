@@ -12,18 +12,26 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
 
-//admin routes
 
-    @GetMapping(path = "users/{userId}")
+    /**
+     * @desc View user
+     * @route Get
+     * @access Private - Admin
+     */
+    @GetMapping(path = "{userId}")
     public ResponseEntity<UserDTO> findUserById(@PathVariable("userId") Long userId) {
         return ResponseEntity.ok(userService.findUserById(userId));
     }
-//@desc current user
+    /**
+     * @desc View profile
+     * @route Get
+     * @access current user
+     */
     @PutMapping(path = "profile")
     public ResponseEntity<UserDTO> updateUser(@RequestBody User user ) {
         return ResponseEntity.ok(userService.updateUser(user));

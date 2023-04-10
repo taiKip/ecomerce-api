@@ -1,6 +1,7 @@
 package com.example.api.controller;
 
-import com.example.api.dto.OrderDTO;
+import com.example.api.entity.Category;
+import com.example.api.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,13 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RequestMapping("api/v1/categories")
 @RequiredArgsConstructor
-@RequestMapping("api/v1/orders")
-public class OrderController {
+public class CategoryController {
+    private final CategoryService categoryService;
 
     @GetMapping
-    public List<OrderDTO> fetchOrders() {
-return null;
+    public List<Category> fetchCategories(){
+        return  categoryService.fetchCategories();
     }
-
 }

@@ -1,6 +1,6 @@
 package com.example.api.dto;
 
-public record UserDTO(
+public record UserDTO (
         Long id,
         String firstname,
         String lastname,
