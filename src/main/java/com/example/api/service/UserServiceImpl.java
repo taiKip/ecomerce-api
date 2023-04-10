@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Objects;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserDTOMapper userDTOMapper;
+    private final AwsS3Service awsS3Service;
 
     @Override
     public List<UserDTO> fetchUsers() {
@@ -46,7 +48,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO updateUser(User user) {
+    public UserDTO updateUser(User user, MultipartFile file) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<User> userDb = userRepository.findByEmail(username);
         if (userDb.isEmpty()) {

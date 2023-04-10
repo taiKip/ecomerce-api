@@ -4,6 +4,7 @@ import com.example.api.dto.UserDTO;
 import com.example.api.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface UserService {
 
     User fetchUserByEmail(String userEmail);
 
-    UserDTO updateUser(User user);
+    UserDTO updateUser(User user, MultipartFile file);
 
     String banUser(Long userId);
 
