@@ -5,7 +5,7 @@ public record UserDTO (
         String firstname,
         String lastname,
         String email,
-        boolean isActive
+        boolean isBanned
 ) {
 
 

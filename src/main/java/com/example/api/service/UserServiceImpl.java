@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO updateUser(User user, MultipartFile file) {
+    public UserDTO updateUser(User user) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<User> userDb = userRepository.findByEmail(username);
         if (userDb.isEmpty()) {
@@ -56,9 +56,17 @@ public class UserServiceImpl implements UserService {
         }
         User foundUser = userDb.get();
 
-        if (Objects.nonNull(user) && !"".equals(user.getFirstname())) {
+        if (Objects.nonNull(user) && !"".equals(user.getFirstname()) && user.getFirstname()!=null) {
             foundUser.setFirstname(user.getFirstname());
         }
+        if (Objects.nonNull(user) && !"".equals(user.getLastname()) && user.getFirstname()!=null) {
+            foundUser.setLastname(user.getLastname());
+        }
+        if (Objects.nonNull(user) && !"".equals(user.getEmail()) && user.getEmail()!=null) {
+            foundUser.setEmail(user.getEmail());
+        }
+
+
         userRepository.save(foundUser);
         return userDb.map(userDTOMapper).get() ;
     }

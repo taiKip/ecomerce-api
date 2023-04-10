@@ -18,7 +18,7 @@ public interface UserService {
 
     User fetchUserByEmail(String userEmail);
 
-    UserDTO updateUser(User user, MultipartFile file);
+    UserDTO updateUser(User user);
 
     String banUser(Long userId);
 

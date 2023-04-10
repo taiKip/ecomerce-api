@@ -30,6 +30,7 @@ public class User extends BaseEntity implements UserDetails {
     @Column(unique = true)
     private String email;
     private String password;
+    private String imageUrl;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private Set<Address> address = new HashSet<>();
     private boolean banned;
