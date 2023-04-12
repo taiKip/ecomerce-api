@@ -1,0 +1,41 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/thriftydb
+    username:
+    password:
+    driver-class-name: org.postgresql.Driver
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+server:
+  error:
+    include-binding-errors: always
+    include-message: always
+
+logging:
+  level:
+    root: DEBUG
+  pattern:
+    console: "{\"timestamp\":\"%d{yyyy-MM-dd HH:mm:ss.SSS}\",\"level\":\"%level\",\"thread\":\"%t\",\"logger\":\"%logger{36}\",\"message\":\"%msg\"}%n"
+cloud:
+  aws:
+    credentials:
+      access-key: ${AWS_ACCESS_KEY}
+      secret-access-key:  ${AWS_SECRET_ACCESS_KEY}
+    region:
+      static: eu-north-1
+    stack: false
+    s3:
+      bucket: thrifty-bucket
+jwt:
+  jwt-key: ${JWT_KEY}
